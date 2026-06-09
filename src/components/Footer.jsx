@@ -11,7 +11,7 @@ const socials = [
 const legal = [
   { to: '#', label: 'Privacy Policy' },
   { to: '#', label: 'Terms of Service' },
-  { to: '#', label: 'Data Ethics Statement' },
+  { to: '#', label: 'Medical Disclaimer' },
 ]
 
 export default function Footer() {
@@ -25,7 +25,9 @@ export default function Footer() {
           viewport={{ once: true }}
         >
           <span className="footer__logo">LUNA</span>
-          <p className="footer__tagline">Workplace wellness meets smart productivity.</p>
+          <p className="footer__tagline">
+            Understanding your patterns. Working with your biology.
+          </p>
           <div className="footer__socials">
             {socials.map((s) => (
               <motion.a

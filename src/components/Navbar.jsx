@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const links = [
   { to: '/', label: 'Home' },
-  { to: '/how-it-works', label: 'How It Works' },
+  { to: '/science', label: 'The Science' },
   { to: '/about', label: 'About' },
 ]
 
@@ -23,7 +23,7 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}
+      className={`navbar ${scrolled || mobileOpen ? 'navbar--scrolled' : ''}`}
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -45,25 +45,22 @@ export default function Navbar() {
               to={to}
               className={`navbar__link ${location.pathname === to ? 'active' : ''}`}
             >
-              <motion.span
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
+              <motion.span whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
                 {label}
               </motion.span>
             </Link>
           ))}
         </nav>
         <div className="navbar__cta">
-          <Link to="/about#contact">
+          <a href="/#waitlist">
             <motion.button
               className="btn btn--primary btn--sm"
               whileHover={{ scale: 1.03, boxShadow: '0 0 30px var(--glow-purple)' }}
               whileTap={{ scale: 0.98 }}
             >
-              Request Demo
+              Join Waitlist
             </motion.button>
-          </Link>
+          </a>
         </div>
         <motion.button
           className="navbar__burger"
@@ -80,25 +77,41 @@ export default function Navbar() {
         {mobileOpen && (
           <motion.div
             className="navbar__mobile"
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
           >
-            <div className="navbar__mobile-grid">
+            <div className="navbar__mobile-links">
               {links.map(({ to, label }, i) => (
-                <Link
+                <motion.div
                   key={to}
-                  to={to}
-                  className={`navbar__mobile-card ${location.pathname === to ? 'active' : ''}`}
+                  initial={{ opacity: 0, x: -15 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.08, duration: 0.25, ease: 'easeOut' }}
                 >
-                  <span className="navbar__mobile-card-label">{label}</span>
-                </Link>
+                  <Link
+                    to={to}
+                    className={`navbar__mobile-link ${location.pathname === to ? 'active' : ''}`}
+                  >
+                    <span className="navbar__mobile-link-label">{label}</span>
+                    {location.pathname === to && (
+                      <span className="navbar__mobile-link-indicator" />
+                    )}
+                  </Link>
+                </motion.div>
               ))}
             </div>
-            <Link to="/about#contact" className="navbar__mobile-cta-wrap">
-              <span className="navbar__mobile-cta-btn">Request Demo</span>
-            </Link>
+            <motion.div 
+              className="navbar__mobile-cta-container"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: links.length * 0.08 + 0.05, duration: 0.3 }}
+            >
+              <a href="/#waitlist" className="navbar__mobile-cta-wrap">
+                <span className="navbar__mobile-cta-btn">Join Waitlist</span>
+              </a>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
