@@ -1078,10 +1078,20 @@
     min-width: unset;
   }
   .svg-wrapper-chart {
-    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.25rem;
   }
   .chart-annotation {
-    font-size: 0.7rem;
-    padding: 0.25rem 0.5rem;
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    font-size: 0.78rem;
+    padding: 0.5rem 0.75rem;
+    width: 100%;
+    box-shadow: none;
+    box-sizing: border-box;
   }
 }
